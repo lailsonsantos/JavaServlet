@@ -24,3 +24,5 @@ hs_err_pid*
 
 # Tomcat 9.0.46
 apache-tomcat-9.0.46/
+/.metadata/
+Servers/
