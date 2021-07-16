@@ -1,8 +1,11 @@
 package br.com.loja.controler;
 
 import java.math.BigDecimal;
+import java.util.List;
 
 import javax.persistence.EntityManager;
+
+import org.hibernate.internal.build.AllowSysOut;
 
 import br.com.loja.dao.CategoriaDao;
 import br.com.loja.dao.ClienteDao;
@@ -14,6 +17,7 @@ import br.com.loja.modelo.ItemPedido;
 import br.com.loja.modelo.Pedido;
 import br.com.loja.modelo.Produto;
 import br.com.loja.util.JPAUtil;
+import br.com.loja.vo.RelatorioDeVendasVo;
 
 public class CadastroPedido {
 	
@@ -37,7 +41,13 @@ public class CadastroPedido {
 		pedidoDao.cadastrar(pedido);
 		
 		em.getTransaction().commit();
-		em.close();
+		//em.close();
+		
+		BigDecimal totalVendido = pedidoDao.valorTotalVendido();
+		System.out.println("Valor total do pedido: " + totalVendido);
+		
+		List<RelatorioDeVendasVo> relatorio = pedidoDao.relatorioDeVendas();
+		relatorio.forEach(System.out::println);
 	}
 
 	private static void populaBanco() {
